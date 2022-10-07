@@ -1,6 +1,8 @@
 # Script awk para procesar el fichero /proc/meminfo, obtener
 # el porcentaje de memoria disponible (Available) y mostrar
 # una advertencia si es menor al límite inferior LOW_LIMIT.
+# Ejemplo de uso:
+# ssh -qx 'cat /proc/meminfo' | awk -f freeMem.awk LOW_LIMIT=35
 #
 # https://github.com/oliver-almaraz/awk_parse_meminfo
 
