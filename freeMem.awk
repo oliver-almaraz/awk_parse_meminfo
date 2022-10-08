@@ -13,10 +13,14 @@ BEGIN {
         LOW_LIMIT=20
 }
 
-/^MemTotal:/ { TOTAL=$2 }
-/^MemAvailable:/ { AVAILABLE=$2 }
+/^MemTotal/ { TOTAL=$2 }
+/^MemAvailable/ { AVAILABLE=$2 }
 
 END {
+    if (TOTAL < 1){
+        print "Error al procesar /proc/meminfo" > "/dev/stderr"
+	exit -1
+    }
     PERCENT_AVAIL= AVAILABLE / TOTAL * 100
     if (PERCENT_AVAIL < LOW_LIMIT){
         printf("Advertencia: solo el %d%c de memoria está disponible\n", PERCENT_AVAIL, "%")
